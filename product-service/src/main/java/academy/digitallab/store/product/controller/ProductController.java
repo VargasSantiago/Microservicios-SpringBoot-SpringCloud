@@ -2,7 +2,7 @@ package academy.digitallab.store.product.controller;
 
 import academy.digitallab.store.product.entity.Category;
 import academy.digitallab.store.product.entity.Product;
-import academy.digitallab.store.product.Service.ProductServices;
+import academy.digitallab.store.product.service.ProductService;
 import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,13 +25,13 @@ import java.util.stream.Collectors;
 public class ProductController {
 
     @Autowired
-    private ProductServices productService ;
+    private ProductService productService ;
 
     @GetMapping
     public ResponseEntity<List<Product>> listProduct(@RequestParam(name = "categoryId", required = false) Long categoryId){
         List<Product> products = new ArrayList<>();
         if (null ==  categoryId){
-            products = productService.listAllProduct();
+             products = productService.listAllProduct();
             if (products.isEmpty()){
                 return ResponseEntity.noContent().build();
             }
@@ -41,6 +41,8 @@ public class ProductController {
                 return ResponseEntity.notFound().build();
             }
         }
+
+
         return ResponseEntity.ok(products);
     }
 
@@ -63,7 +65,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(productCreate);
     }
 
-    @PutMapping(value = "/{id}")
+   @PutMapping(value = "/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
         product.setId(id);
         Product productDB =  productService.updateProduct(product);

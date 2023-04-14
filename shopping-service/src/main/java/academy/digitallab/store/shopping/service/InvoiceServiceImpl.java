@@ -25,7 +25,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Autowired
     InvoiceItemsRepository invoiceItemsRepository;
-
     @Autowired
     CustomerClient customerClient;
 
@@ -49,6 +48,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         invoiceDB.getItems().forEach( invoiceItem -> {
             productClient.updateStockProduct( invoiceItem.getProductId(), invoiceItem.getQuantity() * -1);
         });
+
         return invoiceDB;
     }
 
@@ -81,17 +81,17 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public Invoice getInvoice(Long id) {
 
-        Invoice invoice = invoiceRepository.findById(id).orElse(null);
-        if (null != invoice) {
+        Invoice invoice= invoiceRepository.findById(id).orElse(null);
+        if (null != invoice ){
             Customer customer = customerClient.getCustomer(invoice.getCustomerId()).getBody();
             invoice.setCustomer(customer);
-            List<InvoiceItem> listItem = invoice.getItems().stream().map(invoiceItem -> {
+            List<InvoiceItem> listItem=invoice.getItems().stream().map(invoiceItem -> {
                 Product product = productClient.getProduct(invoiceItem.getProductId()).getBody();
                 invoiceItem.setProduct(product);
-                return  invoiceItem;
+                return invoiceItem;
             }).collect(Collectors.toList());
             invoice.setItems(listItem);
         }
-        return invoice;
+        return invoice ;
     }
 }

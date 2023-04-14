@@ -1,4 +1,4 @@
-package academy.digitallab.store.product.Service;
+package academy.digitallab.store.product.service;
 
 import academy.digitallab.store.product.entity.Category;
 import academy.digitallab.store.product.entity.Product;
@@ -12,9 +12,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProductServiceImpl implements ProductServices {
+public class ProductServiceImpl  implements ProductService{
 
-    @Autowired
 
     private final ProductRepository productRepository;
 
