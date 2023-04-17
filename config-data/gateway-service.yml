@@ -14,11 +14,11 @@ spring:
           enabled: true
       routes:
         - id: customer-service
-          uri: lb://customer-service:8092
+          uri: lb://customer-service
           predicates:
             - Path=/customers/**
         - id: product-service
-          uri: lb://localhost:8091/product-service
+          uri: lb://product-service
           predicates:
             - Path=/products/**
         - id: shopping-service
