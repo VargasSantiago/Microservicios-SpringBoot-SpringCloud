@@ -19,6 +19,7 @@ repositories {
 }
 
 ext {
+	set('springBootAdminVersion', "2.3.0")
 	set('springCloudVersion', "Hoxton.SR7")
 }
 
@@ -30,7 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-	implementation 'org.springframework.cloud:spring-boot-admin-starter-client'
+	implementation 'de.codecentric:spring-boot-admin-starter-client'
 	//compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.2.1'
 	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
 	compileOnly 'org.projectlombok:lombok'
@@ -43,6 +44,7 @@ dependencies {
 
 dependencyManagement {
 	imports {
+		mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
 }
