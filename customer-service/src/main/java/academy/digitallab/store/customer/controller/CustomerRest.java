@@ -28,8 +28,6 @@ public class CustomerRest {
     @Autowired
     CustomerService customerService;
 
-    // -------------------Retrieve All Customers--------------------------------------------
-
     @GetMapping
     public ResponseEntity<List<Customer>> listAllCustomers(@RequestParam(name = "regionId" , required = false) Long regionId ) {
         List<Customer> customers =  new ArrayList<>();
@@ -51,8 +49,6 @@ public class CustomerRest {
         return  ResponseEntity.ok(customers);
     }
 
-    // -------------------Retrieve Single Customer------------------------------------------
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<Customer> getCustomer(@PathVariable("id") long id) {
         log.info("Fetching Customer with id {}", id);
@@ -63,8 +59,6 @@ public class CustomerRest {
         }
         return  ResponseEntity.ok(customer);
     }
-
-    // -------------------Create a Customer-------------------------------------------
 
     @PostMapping
     public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer, BindingResult result) {
@@ -77,8 +71,6 @@ public class CustomerRest {
 
         return  ResponseEntity.status( HttpStatus.CREATED).body(customerDB);
     }
-
-    // ------------------- Update a Customer ------------------------------------------------
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<?> updateCustomer(@PathVariable("id") long id, @RequestBody Customer customer) {
@@ -94,8 +86,6 @@ public class CustomerRest {
         currentCustomer=customerService.updateCustomer(customer);
         return  ResponseEntity.ok(currentCustomer);
     }
-
-    // ------------------- Delete a Customer-----------------------------------------
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") long id) {
