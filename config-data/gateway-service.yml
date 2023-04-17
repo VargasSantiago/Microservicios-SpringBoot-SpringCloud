@@ -20,7 +20,7 @@ spring:
         - id: product-service
           uri: lb://product-service
           predicates:
-            - Path=localhost:8091/products/**
+            - Path=localhost:8091/**
         - id: shopping-service
           uri: lb://shopping-service
           predicates:
